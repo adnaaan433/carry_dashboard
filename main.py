@@ -195,7 +195,7 @@ if comps_df is not None and not comps_df.empty:
             player_stats['overall_percentile'] = player_stats[plot_metrics].rank(pct=True).mean(axis=1).mul(100).round(2)
 
         st.subheader(f"Player Statistics — {len(player_stats):,} rows")
-        st.dataframe(player_stats.sort_values(by='overall_percentile', ascending=False), use_container_width=True)
+        st.dataframe(player_stats.sort_values(by='overall_percentile', ascending=False).reset_index(drop=True), use_container_width=True)
         # st.text(sorted(player_stats.primary_position.unique()))
         
         if not player_stats.empty:
@@ -245,7 +245,7 @@ if comps_df is not None and not comps_df.empty:
                 show_shot=show_shot,
                 show_goal=show_goal
             )
-            
+            st.text(f"{selected_display_name} Ball Carrying Analysis")
             st.pyplot(fig)
     else:
         st.info("👈 Select a competition and season from the sidebar, then click **Load Data** to view the dataframe.")
