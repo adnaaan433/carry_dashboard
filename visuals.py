@@ -42,7 +42,7 @@ def plot_player_dashboard(
     # --- Title Text ---
     fig.text(0.26, 1.09, selected_display_name, fontsize=28, fontproperties=font_bold)
     team_name_str = selected_team_name
-    fig.text(0.26, 1.05, f'Carry Map and Stats Percentiles, for {team_name_str} | Data: Statsbomb | Made by: @adnaaan433', color='#0f0f0f', fontsize=12.5, fontproperties=font_regular)
+    fig.text(0.26, 1.05, f'Ball Carrying Analysis, for {team_name_str} | Data: Statsbomb | Made by: @adnaaan433', color='#0f0f0f', fontsize=12.5, fontproperties=font_regular)
     minute_range_str = f"{min_mins}+" if max_mins == 5000 else f"{min_mins}-{max_mins}"
     pos_label = position_filter if position_filter != 'All' else 'All Position'
     subtitle_text = f'Percentile among {selected_comp_name} {pos_label}s with {minute_range_str} minutes played in {selected_season_name} season'
