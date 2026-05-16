@@ -1,0 +1,5 @@
+I wan to add another column in the Player Statistics, named carry_success_rate_%
+where it will calculate unsuccessful carries and then calculate the success rate from that.
+
+Unusccessful carries: Where the immediate next row doesn't have the same player name as the carry row, exception if the type_name is 'Foul Committed' or type_name is 'Duel' and outcome_name is 'Lost' or 'Lost In Play'.
+Or if the next row's player_name is same but the type_name is 'Dispossessed', 'Goal Keeper', 'Miscontrol'.

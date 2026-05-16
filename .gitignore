@@ -1,0 +1,23 @@
+# Streamlit secrets
+.streamlit/secrets.toml
+.streamlit/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env
+
+# Temporary images and plots
+test_*.png
+*.png
+
+# OS generated files
+.DS_Store
+Thumbs.db
