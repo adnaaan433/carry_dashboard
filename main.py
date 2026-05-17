@@ -126,16 +126,26 @@ if comps_df is not None and not comps_df.empty:
         df['shot_ending_carry'] = is_carry & ((next_type == 'Shot') | ((next_type == 'Pass') & (next_pass_shot_assist == True)))
         df['goal_ending_carry'] = is_carry & (((next_type == 'Shot') & (next_outcome == 'Goal')) | ((next_type == 'Pass') & (next_pass_goal_assist == True)))
         
+        df['shot_ending_carry_length'] = np.where(df['shot_ending_carry'], df['carry_length'], np.nan)
+        df['goal_ending_carry_length'] = np.where(df['goal_ending_carry'], df['carry_length'], np.nan)
+        
         player_stats = df.groupby(['player_name', 'team_name']).agg(
             primary_position=('position_name', lambda x: x.value_counts().index[0] if not x.value_counts().empty else None),
             total_carries=('is_carry', 'sum'),
             unsuccessful_carries=('unsuccessful_carry', 'sum'),
             progressive_carries=('is_progressive_carry', 'sum'),
             avg_carry_length=('carry_length', 'median'),
+            longest_carry=('carry_length', 'max'),
+            longest_carry_led_shot=('shot_ending_carry_length', 'max'),
+            longest_carry_led_goal=('goal_ending_carry_length', 'max'),
             carry_obv=('carry_obv', 'sum'),
             shot_ending_carry=('shot_ending_carry', 'sum'),
             goal_ending_carry=('goal_ending_carry', 'sum')
         ).reset_index()
+        
+        player_stats['longest_carry'] = player_stats['longest_carry'].fillna(0)
+        player_stats['longest_carry_led_shot'] = player_stats['longest_carry_led_shot'].fillna(0)
+        player_stats['longest_carry_led_goal'] = player_stats['longest_carry_led_goal'].fillna(0)
         
         player_stats['progressive_carry_%'] = (player_stats['progressive_carries'] / player_stats['total_carries'] * 100).fillna(0)
         player_stats['carry_success_rate_%'] = ((player_stats['total_carries'] - player_stats['unsuccessful_carries']) / player_stats['total_carries'] * 100).fillna(0)
