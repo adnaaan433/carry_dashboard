@@ -128,9 +128,10 @@ if comps_df is not None and not comps_df.empty:
         
         df['shot_ending_carry_length'] = np.where(df['shot_ending_carry'], df['carry_length'], np.nan)
         df['goal_ending_carry_length'] = np.where(df['goal_ending_carry'], df['carry_length'], np.nan)
+        df['carry_position'] = np.where(is_carry, df['position_name'], None)
         
         player_stats = df.groupby(['player_name', 'team_name']).agg(
-            primary_position=('position_name', lambda x: x.value_counts().index[0] if not x.value_counts().empty else None),
+            primary_position=('carry_position', lambda x: x.value_counts().index[0] if not x.value_counts().empty else None),
             total_carries=('is_carry', 'sum'),
             unsuccessful_carries=('unsuccessful_carry', 'sum'),
             progressive_carries=('is_progressive_carry', 'sum'),
